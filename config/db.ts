@@ -1,16 +1,28 @@
 import { Pool } from "pg";
-require('dotenv').config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const pool = new Pool({
-  user: process.env.DBUSER,
-	password: process.env.DBPASSWORD,
-	host: process.env.DBHOST,
-	port: parseInt(process.env.DBPORT || '5432'),
-	database: process.env.DBDATABASE
+        user: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	host: process.env.DB_HOST,
+	port: parseInt(process.env.DB_PORT || '5432'),
+	database: process.env.DB_DATABASE
 });
 
 const query = async (text: string, params: any[]) => {
 	return await pool.query(text, params);
 }
 
+const connect = async() => {
+	try {
+	    const client = await pool.connect();
+            console.log("Connected to DB");
+            client.release();
+	} catch(err) {
+	    console.error(err);
+	}
+};
+
 export default query;
+export { connect };
