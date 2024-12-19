@@ -10,7 +10,7 @@ router.get('/', (_, res) => {
 	})
 })
 
-export {
+export default {
 	BASE_ROUTE,
 	router
 };

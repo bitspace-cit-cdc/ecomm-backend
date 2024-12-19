@@ -1,9 +1,8 @@
 import app from './app'
-import { connect } from './config';
-
+import { db } from '@config';
 const PORT = 3000
 
-connect();
+db.connect();
 
 app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`)

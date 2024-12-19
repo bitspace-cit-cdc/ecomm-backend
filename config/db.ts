@@ -10,10 +10,6 @@ const pool = new Pool({
 	database: process.env.DB_DATABASE
 });
 
-const query = async (text: string, params: any[]) => {
-	return await pool.query(text, params);
-}
-
 const connect = async() => {
 	try {
 	    const client = await pool.connect();
@@ -24,5 +20,4 @@ const connect = async() => {
 	}
 };
 
-export default query;
-export { connect };
+export default { pool, connect }; 
