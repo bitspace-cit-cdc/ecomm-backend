@@ -1,25 +1,21 @@
-import express from 'express';
-import { userRoutes, productRoutes, orderRoutes } from '@routes';
+import express from "express";
+import cors from "cors";
+import { userRoutes, productRoutes, orderRoutes } from "@routes";
 
-const app = express()
+const app = express();
+const BASE_ROUTE = "/api/v1";
 
-const USER = userRoutes.BASE_ROUTE;
-const userRouter = userRoutes.router;
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
-const PRODUCT = productRoutes.BASE_ROUTE;
-const productRouter = productRoutes.router;
+app.use(cors(corsOptions));
+app.use(express.json());
 
-const ORDER = orderRoutes.BASE_ROUTE; 
-const orderRouter = orderRoutes.router;
-
-app.use(express.json())
-
-app.get('/', (_, res) => {
-	res.send('Hello!, I am BharathSanjeevi aka GOAT!')
-})
-
-app.use(USER, userRouter);
-app.use(PRODUCT, productRouter);
-app.use(ORDER, orderRouter);
+app.use(`${BASE_ROUTE}${orderRoutes.BASE_ROUTE}`, orderRoutes.router);
+app.use(`${BASE_ROUTE}${productRoutes.BASE_ROUTE}`, productRoutes.router);
+app.use(`${BASE_ROUTE}${userRoutes.BASE_ROUTE}`, userRoutes.router);
 
 export default app;
