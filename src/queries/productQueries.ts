@@ -1,5 +1,6 @@
 const getAllProducts = "SELECT * FROM products";
 const getProductsByCategory = "SELECT * FROM products WHERE product_type = $1";
+const getProductById = "SELECT * FROM products WHERE product_id = $1";
 const addProduct =
 	"INSERT INTO products(product_type, name, price, quantity, image_url) VALUES($1, $2, $3 , $4, $5)";
 const updateProduct = (fields: string[]) => {
@@ -14,4 +15,5 @@ export default {
 	getProductsByCategory,
 	updateProduct,
 	addProduct,
+	getProductById,
 };

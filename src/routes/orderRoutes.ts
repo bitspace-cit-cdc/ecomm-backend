@@ -1,6 +1,6 @@
 import express from "express";
 import { orderController } from "@controllers";
-import { asyncHandler } from "@/middlewares";
+import { asyncHandler, authHandler } from "@/middlewares";
 
 const router = express.Router();
 const BASE_ROUTE = "/orders";
@@ -15,7 +15,7 @@ router.put(
 	"/delivery_status",
 	asyncHandler(orderController.updateDeliveryStatus),
 );
-router.post("/add", asyncHandler(orderController.addOrder));
+router.post("/add", authHandler, asyncHandler(orderController.addOrder));
 
 export default {
 	BASE_ROUTE,

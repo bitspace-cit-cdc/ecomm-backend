@@ -3,11 +3,39 @@ import { productQueries } from "@queries";
 import { db } from "@config";
 import { CustomError } from "utils";
 
+type ProductType = {
+	product_id: string;
+	product_type: string;
+	name: string;
+	price: number;
+	quantity: number;
+	image_url: string;
+};
+
 const getAllProducts = async (_req: Request, _res: Response): Promise<any> => {
 	const client = await db.pool.connect();
 	const result = await client.query(productQueries.getAllProducts);
 	client.release();
-	return result.rows;
+	const products: { [key: string]: Array<ProductType> } = {};
+	result.rows.forEach((product: ProductType) => {
+		if (products[product.product_type])
+			products[product.product_type].push(product);
+		else products[product.product_type] = [product];
+	});
+	return products;
+};
+
+const getProductById = async (req: Request, _res: Response): Promise<any> => {
+	const client = await db.pool.connect();
+	const product_id = req.params.product_id;
+	const result = await client.query(productQueries.getProductById, [
+		product_id,
+	]);
+	client.release();
+	if (result.rows.length === 0) {
+		throw new CustomError("Product not found", 404);
+	}
+	return result.rows[0];
 };
 
 const getProductsByCategory = async (
@@ -55,4 +83,5 @@ export default {
 	getProductsByCategory,
 	addProduct,
 	updateProduct,
+	getProductById,
 };

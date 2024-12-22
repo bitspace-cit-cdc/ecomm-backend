@@ -4,8 +4,10 @@ import { CustomError, STATUS_CODE } from "utils";
 const asyncHandler =
   (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) =>
   (req: Request, res: Response, next: NextFunction): void => {
+		console.log(2)
     fn(req, res, next)
       .then((data) => {
+				console.log("Response", data)
         if (data) {
           res.status(STATUS_CODE.ACCEPTED).json({ data });
         } else {

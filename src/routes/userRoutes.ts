@@ -13,7 +13,7 @@ router.get("/", (_, res) => {
   });
 });
 
-router.post("/", asyncHandler(userController.createUser));
+router.post("/signin", asyncHandler(userController.createUser));
 router.post("/login", asyncHandler(userController.loginUser));
 router.post("/check", authHandler, asyncHandler(userController.checkUser));
 
