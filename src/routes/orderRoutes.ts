@@ -15,7 +15,8 @@ router.put(
 	"/delivery_status",
 	asyncHandler(orderController.updateDeliveryStatus),
 );
-router.post("/add", authHandler, asyncHandler(orderController.addOrder));
+router.post("/add", authHandler,
+	asyncHandler(orderController.addOrder));
 
 export default {
 	BASE_ROUTE,

@@ -71,3 +71,12 @@ CREATE TABLE payments (
     amount DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
+
+create table staffs {
+  staff_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,  
+	name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL UNIQUE,
+	password_hash VARCHAR(255) NOT NULL,
+	privilege ENUM('ADMIN', 'MANAGER', 'EMPLOYEE') NOT NULL DEFAULT 'EMPLOYEE',
+	date_hired DATE NOT NULL,
+}; 

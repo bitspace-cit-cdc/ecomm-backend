@@ -15,7 +15,7 @@ router.get("/", (_, res) => {
 
 router.post("/signin", asyncHandler(userController.createUser));
 router.post("/login", asyncHandler(userController.loginUser));
-router.post("/check", authHandler, asyncHandler(userController.checkUser));
+router.post("/issue", authHandler, asyncHandler(userController.createTicket));
 
 export default {
   BASE_ROUTE,

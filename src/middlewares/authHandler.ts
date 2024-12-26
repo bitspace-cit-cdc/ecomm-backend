@@ -11,15 +11,15 @@ const authHandler = (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, TOKEN_SECRET, (err, tokenData) => {
       if (!err) {
-        console.log(2);
-        req.body.user = {
-          id: tokenData,
-        };
+        req.body.token = tokenData;
         next();
+      } else {
+        res.status(STATUS_CODE.UNAUTHORIZED).json({ message: "UNAUTHORIZED" });
       }
     });
+  } else {
+    res.status(STATUS_CODE.UNAUTHORIZED).json({ message: "UNAUTHORIZED" });
   }
-  res.status(STATUS_CODE.UNAUTHORIZED).json({ message: "UNAUTHORIZED" });
 };
 
 export { authHandler };
