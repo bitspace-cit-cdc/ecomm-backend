@@ -30,6 +30,7 @@ CREATE TABLE customers (
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
+    gender BOOLEAN DEFAULT TRUE,
     address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -73,7 +74,7 @@ CREATE TABLE payments (
 );
 
 create table staffs {
-  staff_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,  
+  	staff_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,  
 	name VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL UNIQUE,
 	password_hash VARCHAR(255) NOT NULL,

@@ -6,6 +6,7 @@ const getOrders = async (req: Request, _res: Response) => {
   const customer_id = req.body.customer_id;
   const client = await db.pool.connect();
   const result = await client.query(orderQueries.getOrders, [customer_id]);
+  client.release();
   return result.rows;
 };
 
@@ -13,6 +14,7 @@ const getOrderDetails = async (req: Request, _res: Response) => {
   const order_id = req.body.order_id;
   const client = await db.pool.connect();
   const result = await client.query(orderQueries.getOrderDetails, [order_id]);
+  client.release();
   return result.rows;
 };
 

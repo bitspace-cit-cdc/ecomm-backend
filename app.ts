@@ -6,6 +6,7 @@ import {
   orderRoutes,
   automateRoutes,
   staffRoutes,
+  customerRoutes
 } from "@routes";
 import { logHandler } from "@/middlewares";
 
@@ -27,5 +28,6 @@ app.use(`${BASE_ROUTE}${productRoutes.BASE_ROUTE}`, productRoutes.router);
 app.use(`${BASE_ROUTE}${userRoutes.BASE_ROUTE}`, userRoutes.router);
 app.use(`${BASE_ROUTE}${automateRoutes.BASE_ROUTE}`, automateRoutes.router);
 app.use(`${BASE_ROUTE}${staffRoutes.BASE_ROUTE}`, staffRoutes.router);
+app.use(`${BASE_ROUTE}${customerRoutes.BASE_ROUTE}`, customerRoutes.router);
 
 export default app;
