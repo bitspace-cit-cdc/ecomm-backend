@@ -1,25 +1,22 @@
 import { Pool } from "pg";
-
 import dotenv from "dotenv";
 dotenv.config();
 
 const pool = new Pool({
-	user: process.env.DB_USER,
-	password: process.env.DB_PASSWORD,
-	host: process.env.DB_HOST,
-	port: parseInt(process.env.DB_PORT || "5432"),
-	database: process.env.DB_DATABASE,
+  connectionString: process.env.DB_URI, // ← use your URI here
 });
 
 const connect = async () => {
-	try {
-		console.log("Trying to connect DB");
-		const client = await pool.connect();
-		console.log("Connected to DB");
-		client.release();
-	} catch (err) {
-		console.error(err);
-	}
+  try {
+    console.log("Trying to connect DB");
+    //   console.log(process.env.DB_URI); // Log the connection string for debugging
+    const client = await pool.connect();
+    console.log("Connected to DB");
+    client.release();
+  } catch (err) {
+    console.error("Database connection error:", err);
+    console.error("Please check your DB_URI in .env file");
+  }
 };
 
 export default { pool, connect };

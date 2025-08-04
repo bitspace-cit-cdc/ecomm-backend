@@ -1,27 +1,33 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION ICREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TYPE category AS ENUM (
     'electronics',   
     'furnitures',   
-    'handcrafts',   
+    'handcrafts'   
 );
 
 CREATE TYPE payment_type AS ENUM (
     'card',   
     'cash',  
-    'upi', 
+    'upi'
 );
 
 CREATE TYPE delivery_status AS ENUM (
     'pending',
     'shipped',
-    'delivered',
+    'delivered'
 );
 
 CREATE TYPE payment_status AS ENUM (
     'pending',
     'paid',
-    'cancelled',
+    'cancelled'
+);
+
+CREATE TYPE staff_privilege AS ENUM (
+    'ADMIN', 
+    'MANAGER', 
+    'EMPLOYEE'
 );
 
 CREATE TABLE customers (
@@ -41,7 +47,7 @@ CREATE TABLE products (
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     quantity INT NOT NULL,
-    image_url VARCHAR(255),
+    image_url VARCHAR(255)
 );
 
 CREATE TABLE orders (
@@ -73,11 +79,12 @@ CREATE TABLE payments (
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
 
-create table staffs {
-  	staff_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,  
+create table staffs (
+  	staff_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL UNIQUE,
 	password_hash VARCHAR(255) NOT NULL,
-	privilege ENUM('ADMIN', 'MANAGER', 'EMPLOYEE') NOT NULL DEFAULT 'EMPLOYEE',
-	date_hired DATE NOT NULL,
-}; 
+	privilege staff_privilege NOT NULL DEFAULT 'EMPLOYEE',
+	date_hired DATE NOT NULL
+); 
+
